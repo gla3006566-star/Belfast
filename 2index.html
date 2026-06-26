@@ -917,7 +917,7 @@
 
 <script>
   const pages = Array.from(document.querySelectorAll(".page"));
-  const totalSteps = pages.length;
+  const totalSteps = pages.length; // 現在是 10
   let currentStep = 1;
 
   const stepLabel = document.getElementById("step-label");
@@ -943,6 +943,12 @@
     renderDots();
     const percent = (currentStep - 1) / (totalSteps - 1) * 100;
     progressBar.style.width = `${percent}%`;
+  }
+
+  function goToStep(stepNumber) {
+    if (stepNumber < 1 || stepNumber > totalSteps) return;
+    currentStep = stepNumber;
+    updateUI();
   }
 
   // 初始
@@ -1058,6 +1064,39 @@
       }
     });
   });
+
+  // 第 8–10 頁按鈕邏輯（不傳回饋，只切換畫面）
+  const btnYes = document.getElementById("btn-yes");
+  if (btnYes) {
+    btnYes.addEventListener("click", () => {
+      // 直接到「一起出發吧！」（第 10 頁）
+      goToStep(10);
+    });
+  }
+
+  const btnTired = document.getElementById("btn-tired");
+  if (btnTired) {
+    btnTired.addEventListener("click", () => {
+      // 先到「你確定嗎？」（第 9 頁）
+      goToStep(9);
+    });
+  }
+
+  const btnThinkAgain = document.getElementById("btn-think-again");
+  if (btnThinkAgain) {
+    btnThinkAgain.addEventListener("click", () => {
+      // 回到第 8 頁再選
+      goToStep(8);
+    });
+  }
+
+  const btnGoAnyway = document.getElementById("btn-go-anyway");
+  if (btnGoAnyway) {
+    btnGoAnyway.addEventListener("click", () => {
+      // 還是決定出發 → 第 10 頁
+      goToStep(10);
+    });
+  }
 </script>
 </body>
 </html>
