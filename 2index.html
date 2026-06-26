@@ -878,7 +878,7 @@
   </footer>
 </div>
 
-    <!-- 頁面 9：你確定嗎？ -->
+ <!-- 頁面 9：你確定嗎？ -->
     <section class="page" data-step="9">
       <div class="card">
         <h2>你確定嗎？</h2>
@@ -890,7 +890,7 @@
         </div>
 
         <div class="btn-row">
-          <button class="btn-secondary" data-prev>我再想一下</button>
+          <button class="btn-secondary" id="btn-think-again">我再想一下</button>
           <button class="btn-primary" id="btn-go-anyway">去吧！</button>
         </div>
       </div>
@@ -906,6 +906,16 @@
         </div>
       </div>
     </section>
+  </main>
+
+  <footer>
+    <div class="progress">
+      <span>進度</span>
+      <div class="bar"><div class="bar-inner" id="progress-bar"></div></div>
+    </div>
+    <div>設計給：正在猶豫要不要出發的你</div>
+  </footer>
+</div>
   
 <!-- 行程 & 住宿詳細 Modal -->
 <div class="modal-backdrop" id="modal-backdrop">
@@ -1065,7 +1075,7 @@
     });
   });
 
-  // 第 8–10 頁按鈕邏輯（不傳回饋，只切換畫面）
+  // 第 8–10 頁按鈕邏輯
   const btnYes = document.getElementById("btn-yes");
   if (btnYes) {
     btnYes.addEventListener("click", () => {
