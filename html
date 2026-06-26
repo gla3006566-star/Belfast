@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>貝爾法斯特旅程邀請函</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts 可自行更換 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --primary: #2b6cb0;
+      --primary-light: #bee3f8;
+      --accent: #f97316;
+      --card-bg: #ffffff;
+      --text-main: #1a202c;
+      --text-sub: #4a5568;
+      --border-radius: 16px;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #dbeafe 0, #f8fafc 45%, #edf2f7 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+      min-height: 90vh;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+    }
+
+    header {
+      padding: 16px 28px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #1e3a8a, #0284c7);
+      color: #e5f4ff;
+    }
+
+    header .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    header .subtitle {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    header .step-indicator {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header .step-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    header .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(226, 232, 240, 0.45);
+    }
+
+    header .dot.active {
+      width: 20px;
+      background: #facc15;
+    }
+
+    main {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(15,23,42,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(59,130,246,0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 12px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: #1e293b;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #1f2937;
+    }
+
+    p {
+      margin: 0 0 8px;
+      line-height: 1.6;
+      color: var(--text-sub);
+    }
+
+    .hero-illustration,
+    .section-illustration {
+      margin-top: 16px;
+      border-radius: 18px;
+      height: 180px;
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e0f2fe;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.3);
+    }
+
+    .section-illustration {
+      background: linear-gradient(135deg, #1d4ed8, #22c55e);
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #0ea5e9);
+      color: #eff6ff;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #1f2937;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #cbd5f5;
+      color: #1e3a8a;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .tag span.icon {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #38bdf8;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .info-item {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 0.98rem;
+      color: #111827;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 0.80rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(129, 140, 248, 0.08);
+      color: #334155;
+      border: 1px solid rgba(129, 140, 248, 0.25);
+    }
+
+    /* 行程卡片 */
+    .day-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .day-card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 14px 14px;
+      border: 1px solid rgba(148,163,184,0.4);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      overflow: hidden;
+    }
+
+    .day-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.12), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    .day-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(15,23,42,0.15);
+      border-color: #3b82f6;
+    }
+
+    .day-card:hover::before {
+      opacity: 1;
+    }
+
+    .day-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-subtitle {
+      font-size: 0.86rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .day-pois {
+      font-size: 0.82rem;
+      color: #4b5563;
+    }
+
+    .link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* 住宿卡片 */
+    .stay-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .stay-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: #ffffff;
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .stay-card:hover {
+      box-shadow: 0 12px 22px rgba(15,23,42,0.15);
+      transform: translateY(-2px);
+      border-color: #10b981;
+    }
+
+    .stay-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      color: #111827;
+    }
+
+    .stay-price {
+      font-size: 0.92rem;
+      color: #065f46;
+    }
+
+    .stay-note {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* 預算表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #e5edff;
+      color: #1e293b;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(148,163,184,0.6);
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    tr:nth-child(odd) td {
+      background: #ffffff;
+    }
+
+    /* 其他想法 */
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 10px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37,99,235,0.3);
+    }
+
+    /* Modal 彈窗 */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 20;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #ffffff;
+      border-radius: 18px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 45px rgba(15,23,42,0.45);
+      padding: 20px 22px 18px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border-radius: 999px;
+      border: none;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #64748b;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.88rem;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .map-placeholder {
+      margin-top: 10px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0f766e, #22c55e);
+      color: #e0f2f1;
+      font-size: 0.85rem;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .map-placeholder span {
+      opacity: 0.9;
+    }
+
+    .eye-text {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .eye-emoji {
+      font-size: 1.6rem;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    footer {
+      padding: 12px 22px;
+      border-top: 1px solid rgba(148,163,184,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: #6b7280;
+      background: #f9fafb;
+    }
+
+    footer .progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer .bar {
+      width: 180px;
+      height: 4px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    footer .bar-inner {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4f46e5, #ec4899);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    @media (max-width: 640px) {
+      .app {
+        border-radius: 0;
+        min-height: 100vh;
+      }
+      header {
+        padding: 14px 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      main {
+        padding: 18px 14px;
+      }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      footer .bar {
+        width: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <div class="title">貝爾法斯特旅程邀請函</div>
+      <div class="subtitle">為期三天的小旅行，一起去看巨人之路與泰坦尼克。</div>
+    </div>
+    <div class="step-indicator">
+      <span id="step-label">步驟 1 / 8</span>
+      <div class="step-dots" id="step-dots"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 頁面 1 -->
+    <section class="page active" data-step="1">
+      <div class="card">
+        <div class="tag">
+          <span class="icon"></span>
+          Special invitation
+        </div>
+        <h1>您收到一封邀請函</h1>
+        <p>嗨，這是一封專屬於你的旅程邀請。想不想暫時離開論文與作業，來一趟輕盈又充滿故事感的城市小旅行？</p>
+
+        <div class="hero-illustration">
+          07 JUL 2026 · BELFAST TRIP BOARDING PASS
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" id="btn-open">開啟 ✈️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 2 -->
+    <section class="page" data-step="2">
+      <div class="card">
+        <h2>這是一段旅程的邀請</h2>
+        <p>三天兩夜，從格拉斯哥飛往貝爾法斯特，看海邊巨石、走進泰坦尼克的故事，也順便感受一點北愛的日常步調。</p>
+        <p>接下來的幾頁，會把日期、行程、住宿與預算都整理給你，你只需要思考一件事：<span class="highlight">要不要一起去</span>。</p>
+
+        <div class="section-illustration">
+          City · Coastline · Museums · Coffee walks
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>看日期與航班 👉</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 3：日期／地點／航班 -->
+    <section class="page" data-step="3">
+      <div class="card">
+        <h2>旅程基本資訊</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">日期</div>
+            <div class="info-value">2026 / 07 / 07 – 2026 / 07 / 09</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">地點</div>
+            <div class="info-value">英國 · 貝爾法斯特 (Belfast)</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">航班</div>
+            <div class="info-value">
+              EasyJet 07/07 GLA M 11:30 → 12:15 BHD<br/>
+              EasyJet 07/09 BFS 22:20 → 23:05 GLA M
+            </div>
+          </div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">白天飛去，晚上回來</span>
+          <span class="chip">兩個不同機場：BHD / BFS</span>
+          <span class="chip">適合學生的短旅行</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>看看行程安排 📍</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 4：行程概覽 -->
+    <section class="page" data-step="4">
+      <div class="card">
+        <h2>行程規劃</h2>
+        <p>每一天都安排了一點「必看」與「隨興」，點擊下面的卡片，可以展開當天詳情與路線示意。</p>
+
+        <div class="day-list">
+          <div class="day-card" data-day="1">
+            <div class="day-title">
+              <span>DAY 1｜城市初見</span>
+              <span>➜</span>
+            </div>
+            <div class="day-subtitle">市政廳 · 聖安妮大教堂 · 大魚雕像 · 泰坦尼克博物館 · City walk</div>
+            <div class="day-pois">
+              以步行為主，感受城市氛圍，順便補上泰坦尼克故事。
+            </div>
+          </div>
+
+          <div class="day-card" data-day="2">
+            <div class="day-title">
+              <span>DAY 2｜巨人之路</span>
+              <span>➜</span>
+            </div>
+            <div class="day-subtitle">巨人之路 · GetYourGuide 一日遊團</div>
+            <div class="day-pois">
+              跟團省心，含交通與部分景點，沿途是北愛海岸線風景。
+            </div>
+          </div>
+
+          <div class="day-card" data-day="3">
+            <div class="day-title">
+              <span>DAY 3｜校園與博物館</span>
+              <span>➜</span>
+            </div>
+            <div class="day-subtitle">女王大學 · 植物園 · Ulster Museum</div>
+            <div class="day-pois">
+              校園散步、溫室植物、免費博物館，慢慢走、慢慢看。
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>看看住宿與交通 🏨</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 5：住宿與交通與門票 -->
+    <section class="page" data-step="5">
+      <div class="card">
+        <h2>住宿 · 交通 · 門票</h2>
+
+        <h3>住宿選項（可點擊查看）</h3>
+        <p>三間都在市中心附近，價格是兩晚合計參考價。</p>
+        <div class="stay-list">
+          <div class="stay-card" data-stay="1">
+            <div class="stay-name">選項一：沃倫精選-四分之一酒店</div>
+            <div class="stay-price">約 GBP 185 / 2 晚</div>
+            <div class="stay-note">設計感較高的小型旅宿，適合喜歡溫馨風格。</div>
+          </div>
+
+          <div class="stay-card" data-stay="2">
+            <div class="stay-name">選項二：貝爾法斯特市中心温德姆華美達酒店</div>
+            <div class="stay-price">約 GBP 200 / 2 晚</div>
+            <div class="stay-note">連鎖品牌，機能方便，整體舒適穩定。</div>
+          </div>
+
+          <div class="stay-card" data-stay="3">
+            <div class="stay-name">選項三：貝爾法斯特市中心假日酒店</div>
+            <div class="stay-price">約 GBP 233 / 2 晚</div>
+            <div class="stay-note">位置非常方便，適合希望交通最省事的選擇。</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:16px;">交通與門票</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">格拉機場 ↔ 市區</div>
+            <div class="info-value">來回約 GBP 18 – 25</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">貝爾法斯特公交</div>
+            <div class="info-value">一日票 GBP 4 · 單次 GBP 2.3<br>約 GBP 4.6 – 12</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">門票</div>
+            <div class="info-value">
+              泰坦尼克博物館 GBP 21.95<br>
+              聖安妮大教堂 免費<br>
+              市政廳 GBP 4<br>
+              Ulster Museum 免費<br>
+              植物園 免費
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>看看總預算 💸</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 6：預算表格 -->
+    <section class="page" data-step="6">
+      <div class="card">
+        <h2>預算一覽（以一人為單位估算）</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>項目</th>
+            <th>預估金額（GBP）</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>機票</td>
+            <td>59</td>
+          </tr>
+          <tr>
+            <td>住宿</td>
+            <td>90 – 120（依房型與入住人數分攤）</td>
+          </tr>
+          <tr>
+            <td>交通</td>
+            <td>22.6 – 37（含往返機場與市內交通）</td>
+          </tr>
+          <tr>
+            <td>一日遊（巨人之路）</td>
+            <td>22 – 25</td>
+          </tr>
+          <tr>
+            <td>門票</td>
+            <td>0 – 25.95（看你選擇哪些）</td>
+          </tr>
+          <tr>
+            <td>飲食</td>
+            <td>60 – 120（依個人飲食習慣）</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>總預算範圍</th>
+            <th>約 GBP 253.6 – 386.95</th>
+          </tr>
+          </tfoot>
+        </table>
+        <p style="margin-top:10px;">實際金額會依訂票時間、房型和餐食選擇略有變動，但大致在這個範圍內。</p>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>留下你的想法 ✍️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 7：其他想法 -->
+    <section class="page" data-step="7">
+      <div class="card">
+        <h2>其他想法 · 願望清單</h2>
+        <p>有沒有想特別去的咖啡店、想吃的食物、或是想加進行程的小願望？都可以先寫在這裡。</p>
+
+        <textarea placeholder="例如：想找一間在地咖啡、想吃北愛傳統料理、想拍城市夜景、如果遇上雨天可以安排什麼室內活動……"></textarea>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>上一頁</button>
+          <button class="btn-primary" data-next>最後一頁 👀</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁面 8：是否參加 -->
+    <section class="page" data-step="8">
+      <div class="card">
+        <h2>那麼，你會來嗎？</h2>
+        <p>行程、預算、住宿都介紹完了。接下來，只差你的答案。</p>
+        <div class="hero-illustration">
+          我在貝爾法斯特等你 · 一起出發嗎？
+        </div>
+        <div class="eye-text">
+          是否參加呢？
+          <span class="eye-emoji">👀</span>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" data-prev>再回去看看</button>
+          <button class="btn-primary">我想一起去 💌</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="progress">
+      <span>進度</span>
+      <div class="bar"><div class="bar-inner" id="progress-bar"></div></div>
+    </div>
+    <div>設計給：正在猶豫要不要出發的你</div>
+  </footer>
+</div>
+
+<!-- 行程 & 住宿詳細 Modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="關閉">✕</button>
+    <div id="modal-content"><!-- 動態插入 --></div>
+  </div>
+</div>
+
+<script>
+  const pages = Array.from(document.querySelectorAll(".page"));
+  const totalSteps = pages.length;
+  let currentStep = 1;
+
+  const stepLabel = document.getElementById("step-label");
+  const stepDots = document.getElementById("step-dots");
+  const progressBar = document.getElementById("progress-bar");
+
+  // 建立 step dots
+  function renderDots() {
+    stepDots.innerHTML = "";
+    for (let i = 1; i <= totalSteps; i++) {
+      const dot = document.createElement("div");
+      dot.className = "dot" + (i === currentStep ? " active" : "");
+      stepDots.appendChild(dot);
+    }
+  }
+
+  function updateUI() {
+    pages.forEach(p => {
+      const step = Number(p.dataset.step);
+      p.classList.toggle("active", step === currentStep);
+    });
+    stepLabel.textContent = `步驟 ${currentStep} / ${totalSteps}`;
+    renderDots();
+    const percent = (currentStep - 1) / (totalSteps - 1) * 100;
+    progressBar.style.width = `${percent}%`;
+  }
+
+  // 初始
+  renderDots();
+  updateUI();
+
+  // 下一頁／上一頁按鈕
+  document.querySelectorAll("[data-next]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateUI();
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-prev]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateUI();
+      }
+    });
+  });
+
+  // 第一頁「開啟」按鈕
+  document.getElementById("btn-open").addEventListener("click", () => {
+    currentStep = 2;
+    updateUI();
+  });
+
+  // Modal 元素
+  const modalBackdrop = document.getElementById("modal-backdrop");
+  const modalContent = document.getElementById("modal-content");
+  const modalClose = document.getElementById("modal-close");
+
+  function openModal(html) {
+    modalContent.innerHTML = html;
+    modalBackdrop.classList.add("active");
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove("active");
+  }
+
+  modalClose.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", (e) => {
+    if (e.target === modalBackdrop) {
+      closeModal();
+    }
+  });
+
+  // 行程詳情內容
+  const dayDetails = {
+    1: `
+      <div class="modal-title">DAY 1｜市政廳 · 聖安妮大教堂 · 大魚雕像 · 泰坦尼克博物館 · City walk</div>
+      <div class="modal-subtitle">以步行探索市中心與港口區，感受城市與海的節奏。</div>
+      <p><strong>市政廳 Belfast City Hall：</strong> 典雅的新巴洛克式建築，可以參加導覽或參觀展廳，了解城市歷史。</p>
+      <p><strong>聖安妮大教堂 St Anne's Cathedral：</strong> 北愛重要教堂之一，內部彩繪玻璃與馬賽克非常精緻。</p>
+      <p><strong>大魚雕像 Big Fish：</strong> 貝爾法斯特河畔地標，魚身的藍色瓷磚記錄城市的重要事件。</p>
+      <p><strong>泰坦尼克博物館 Titanic Belfast：</strong> 以沉浸式展覽呈現造船工業與泰坦尼克號故事，是這趟旅程的情緒高點之一。</p>
+      <div class="map-placeholder">
+        <span>路線示意：市政廳 → 聖安妮大教堂 → 大魚雕像 → 泰坦尼克博物館 · 以步行＋短程公交為主</span>
+        <span>🗺️</span>
+      </div>
+    `,
+    2: `
+      <div class="modal-title">DAY 2｜巨人之路 GetYourGuide 一日遊</div>
+      <div class="modal-subtitle">跟著團走北愛海岸線，一天看完海岸景致與巨人之路。</div>
+      <p><strong>巨人之路 Giant's Causeway：</strong> 聯合國教科文組織世界遺產，由無數六角玄武岩柱組成，像是走進神話場景。</p>
+      <p><strong>GetYourGuide 一日遊團：</strong> 行程通常包含交通、導覽與幾個沿途停留點（如城堡或觀景點），省去自行規劃交通的麻煩。</p>
+      <p>這一天大部分時間在車上與戶外，適合穿著防風保暖、好走的鞋子。</p>
+      <div class="map-placeholder">
+        <span>路線示意：貝爾法斯特 → 北愛海岸線 → 巨人之路 → 返回貝爾法斯特（巴士一日往返）</span>
+        <span>🚌</span>
+      </div>
+    `,
+    3: `
+      <div class="modal-title">DAY 3｜女王大學 · 植物園 · Ulster Museum</div>
+      <div class="modal-subtitle">節奏比較慢的一天，用散步與博物館收尾旅程。</div>
+      <p><strong>女王大學 Queen's University Belfast：</strong> 校園充滿紅磚建築與綠地，非常適合散步拍照。</p>
+      <p><strong>植物園 Botanic Gardens：</strong> 有維多利亞式玻璃溫室，可以看看不同氣候帶的植物。</p>
+      <p><strong>Ulster Museum：</strong> 免費博物館，從自然史、藝術到北愛歷史都有，內容豐富。</p>
+      <div class="map-placeholder">
+        <span>路線示意：市中心 → 女王大學區域步行串聯 植物園與 Ulster Museum</span>
+        <span>🌿</span>
+      </div>
+    `
+  };
+
+  // 住宿連結
+  const stayLinks = {
+    1: "https://www.trip.com/w/1LVOdIMxGV2",
+    2: "https://www.trip.com/w/UWRO5oLxGV2",
+    3: "https://www.trip.com/w/ycDzE7MwGV2"
+  };
+
+  // 點擊行程卡片
+  document.querySelectorAll(".day-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const day = card.dataset.day;
+      openModal(dayDetails[day] || "<p>暫無資料</p>");
+    });
+  });
+
+  // 點擊住宿卡片
+  document.querySelectorAll(".stay-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const stayId = card.dataset.stay;
+      const url = stayLinks[stayId];
+      if (url) {
+        window.open(url, "_blank");
+      }
+    });
+  });
+</script>
+</body>
+</html>
